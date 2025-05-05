@@ -28,41 +28,30 @@ const eslintConfig = [
   // 프로젝트 커스텀 룰: 공통 설정 및 간단한 추가 룰
   // ─────────────────────────────────────────────────────────────────────────────
   {
-    // 빌드 결과물 및 node_modules 폴더 제외
+    /* 빌드 결과물 및 node_modules 폴더 제외 */
     ignores: ['dist', 'node_modules'],
 
-    // 적용 대상 파일
+    /* 적용 대상 파일 */
     files: ['**/*.{js,jsx,ts,tsx}'],
 
-    // 언어 옵션 설정: 파서와 전역 변수를 정의합니다
+    /* 언어 옵션 설정: 파서와 전역 변수를 정의 */
     languageOptions: {
-      // 파서 옵션: 코드 파싱 방식을 지정
+      /* 파서 옵션: 코드 파싱 방식을 지정 */
       parserOptions: {
-        // tsconfig 위치 지정 (TypeScript 프로젝트에서 필수)
-        // TypeScript ESLint 플러그인이 타입 정보를 읽어들이기 위해 필요
-        tsconfigRootDir: __dirname,
-        // ECMAScript 문법 버전 설정
-        ecmaVersion: 2020,
-        // 모듈 시스템을 'module'로 지정해 import/export 문법을 허용
-        sourceType: 'module',
-        // JSX 문법 사용을 활성화 (React 및 유사 라이브러리에서 필요)
-        ecmaFeatures: { jsx: true },
-        // JSX 자동 변환 사용 명시 (React 17+)
-        jsxPragma: null,
+        tsconfigRootDir: __dirname, // tsconfig 위치 지정 (TypeScript 프로젝트에서 필수) TypeScript ESLint 플러그인이 타입 정보를 읽어들이기 위해 필요
+        ecmaVersion: 2020, // ECMAScript 문법 버전 설정
+        sourceType: 'module', // 모듈 시스템을 'module'로 지정해 import/export 문법을 허용
+        ecmaFeatures: { jsx: true }, // JSX 문법 사용을 활성화 (React 및 유사 라이브러리에서 필요)
+        jsxPragma: null, // JSX 자동 변환 사용 명시 (React 17+)
         jsxPragmaFrag: null,
       },
 
-      // 전역 변수 설정: ESLint가 이 변수들을 미리 알고 무시하도록 하기
+      /* 전역 변수 설정: ESLint가 이 변수들을 미리 알고 무시하도록 하기 */
       globals: {
-        // 브라우저 환경 전역 객체(window, document 등)를 허용
-        ...globals.browser,
-        // Node.js 환경 전역 객체(process, Buffer 등)를 허용
-        ...globals.node,
-        // React 17 이상에서 JSX 변환 시 React를 자동으로 import 하지 않도록
-        // React 전역 변수를 미리 허용
-        React: true,
-        // 새로운 JSX transform 사용 시 필요한 JSX 전역 타입을 허용
-        JSX: true,
+        ...globals.browser, // 브라우저 환경 전역 객체(window, document 등)를 허용
+        ...globals.node, // Node.js 환경 전역 객체(process, Buffer 등)를 허용
+        React: true, // React 17 이상에서 JSX 변환 시 React를 자동으로 import 하지 않도록 React 전역 변수를 미리 허용
+        JSX: true, // 새로운 JSX transform 사용 시 필요한 JSX 전역 타입을 허용
       },
     },
 
@@ -102,7 +91,8 @@ const eslintConfig = [
       '@typescript-eslint/no-explicit-any': 'off', // TypeScript에서 'any' 타입의 명시적 사용 허용
       '@typescript-eslint/no-var-requires': 'off', // require 사용 허용
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }], // 미사용 변수 경고: 단, 변수명이 _로 시작하는 경우는 무시
-      // 네이밍 컨벤션 규칙
+
+      /* Naming Convention Rules */
       '@typescript-eslint/naming-convention': [
         'warn',
         {
@@ -134,7 +124,7 @@ const eslintConfig = [
       /* Component Naming */
       'react/jsx-pascal-case': ['warn', { allowAllCaps: false, ignore: [] }],
 
-      // 환경별 console/debugger 사용 제어
+      /* Environment-based console/debugger restrictions */
       'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     },
