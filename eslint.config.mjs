@@ -1,8 +1,15 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import unusedImports from 'eslint-plugin-unused-imports';
+import promisePlugin from 'eslint-plugin-promise';
+import prettier from 'eslint-plugin-prettier';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,7 +47,11 @@ const eslintConfig = [
         sourceType: 'module',
         // JSX 문법 사용을 활성화 (React 및 유사 라이브러리에서 필요)
         ecmaFeatures: { jsx: true },
+        // JSX 자동 변환 사용 명시 (React 17+)
+        jsxPragma: null,
+        jsxPragmaFrag: null,
       },
+
       // 전역 변수 설정: ESLint가 이 변수들을 미리 알고 무시하도록 하기
       globals: {
         // 브라우저 환경 전역 객체(window, document 등)를 허용
@@ -55,17 +66,34 @@ const eslintConfig = [
       },
     },
 
-    plugins: {
-      'simple-import-sort': simpleImportSort,
+    settings: {
+      react: {
+        version: 'detect',
+        runtime: 'automatic',
+      },
     },
+
+    plugins: {
+      react,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      'simple-import-sort': simpleImportSort,
+      'jsx-a11y': jsxA11y,
+      'unused-imports': unusedImports,
+      promise: promisePlugin,
+      prettier: prettier,
+    },
+
     rules: {
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+
       /* Code Style & Formatting */
       'prettier/prettier': 'error',
       'prefer-const': 'warn', // 값이 재할당되지 않는 변수에 대해 "let" 대신 "const"를 사용하도록 경고
       'prefer-arrow-callback': 'off', // eslint-plugin-prettier와 충돌하는 ESLint core 규칙 비활성화
 
       /* React-specific Rules */
-
       'react/no-unknown-property': 'off', // DOM에 정의되지 않은 속성 사용 체크 비활성화
       'react/prop-types': 'off', // 정의한 props에 대한 prop-types 체크 비활성화
       'react-hooks/exhaustive-deps': 'warn', // React Hooks 의존성 배열 규칙 경고
@@ -109,26 +137,6 @@ const eslintConfig = [
       // 환경별 console/debugger 사용 제어
       'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-
-      // ▶ 단방향 참조 금지: app/pages/features/entities/shared 계층 분리
-      'import/no-restricted-paths': [
-        'error',
-        {
-          zones: [
-            /* zones 설정 생략… */
-          ],
-        },
-      ],
-
-      // ▶ import 정렬 자동화
-      'simple-import-sort/imports': [
-        'error',
-        {
-          groups: [
-            /* 그룹 설정 생략… */
-          ],
-        },
-      ],
     },
   },
 ];

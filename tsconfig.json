@@ -7,6 +7,8 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true, // 다른 OS(특히 macOS ↔ Windows)에서 대소문자 혼용 오류 방지
+    "noFallthroughCasesInSwitch": true, // switch-case 문에서 break 누락으로 인한 논리 오류 방지
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -22,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "custom.d.ts"],
+  "exclude": ["node_modules", ".next", "build"]
 }

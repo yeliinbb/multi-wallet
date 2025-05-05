@@ -6,16 +6,14 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "prepare": "husky install",
-    "format": "prettier --write .",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "npm run lint -- --fix",
-    "lint-staged": "lint-staged"
+    "lint": "next lint",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.{tsx,ts,jsx,js}": [
-      "npm run format",
-      "npm run lint:fix"
+      "prettier --write",
+      "eslint --fix"
     ]
   },
   "dependencies": {
@@ -23,6 +21,8 @@
     "@tanstack/react-query": "^5.75.2",
     "@tanstack/react-query-devtools": "^5.75.2",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^16.0.0",
     "husky": "^9.1.7",
     "next": "15.2.3",
@@ -31,7 +31,9 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
+    "@types/eslint-plugin-jsx-a11y": "^6.10.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -41,6 +43,9 @@
     "eslint-config-next": "^15.2.3",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-prettier": "^5.3.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^8.0.0",
     "lint-staged": "^15.5.1",
