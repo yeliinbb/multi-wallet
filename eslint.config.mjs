@@ -69,8 +69,8 @@ const eslintConfig = [
       'simple-import-sort': simpleImportSort,
       'jsx-a11y': jsxA11y,
       'unused-imports': unusedImports,
-      promise: promisePlugin,
-      prettier: prettier,
+      'promise': promisePlugin,
+      'prettier': prettier,
     },
 
     rules: {
@@ -81,6 +81,11 @@ const eslintConfig = [
       'prettier/prettier': 'error',
       'prefer-const': 'warn', // 값이 재할당되지 않는 변수에 대해 "let" 대신 "const"를 사용하도록 경고
       'prefer-arrow-callback': 'off', // eslint-plugin-prettier와 충돌하는 ESLint core 규칙 비활성화
+      'no-trailing-spaces': 'error', // 줄 끝의 불필요한 공백 제거
+      'no-multiple-empty-lines': ['error', { max: 1 }], // 여러 줄의 빈 줄을 하나로 통합
+      'no-multi-spaces': 'error', // 여러 개의 공백을 하나로 통합
+      'object-curly-spacing': ['error', 'always'], // 객체 리터럴의 중괄호 안쪽 공백 제어
+      'array-bracket-spacing': ['error', 'never'], // 배열 리터럴의 대괄호 안쪽 공백 제어
 
       /* React-specific Rules */
       'react/no-unknown-property': 'off', // DOM에 정의되지 않은 속성 사용 체크 비활성화
@@ -118,7 +123,7 @@ const eslintConfig = [
       'promise/no-return-wrap': 'warn', // Promise 내부 반환 래핑 방지
 
       /* Complexity Limits */
-      complexity: ['warn', { max: 10 }], // 함수 복잡도 제한
+      'complexity': ['warn', { max: 10 }], // 함수 복잡도 제한
       'max-depth': ['warn', 4], // 중첩 블록 깊이 제한
 
       /* Component Naming */

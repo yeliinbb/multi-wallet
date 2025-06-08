@@ -1,6 +1,6 @@
 /** @type {import('prettier').Config} */
 module.exports = {
-  printWidth: 120, // 한 줄 최대 길이
+  printWidth: 80, // 한 줄 최대 길이
   tabWidth: 2, // 들여쓰기 공백 수
   useTabs: false, // 탭 대신 스페이스 사용
   semi: true, // 세미콜론 붙이기
@@ -16,4 +16,6 @@ module.exports = {
   endOfLine: 'lf', // 개행 문자 스타일: LF (유닉스/맥 기준)
   embeddedLanguageFormatting: 'auto', // 코드블럭 포맷팅 자동
   singleAttributePerLine: true, // JSX에서 속성 1개당 1줄
+  // 함수 매개변수가 여러 줄로 나뉘도록 설정
+  functionParameters: true,
 };
