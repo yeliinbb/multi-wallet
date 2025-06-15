@@ -32,7 +32,7 @@ const eslintConfig = [
     ignores: ['dist', 'node_modules'],
 
     /* 적용 대상 파일 */
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
 
     /* 언어 옵션 설정: 파서와 전역 변수를 정의 */
     languageOptions: {
@@ -63,14 +63,14 @@ const eslintConfig = [
     },
 
     plugins: {
-      react,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      'simple-import-sort': simpleImportSort,
-      'jsx-a11y': jsxA11y,
-      'unused-imports': unusedImports,
-      'promise': promisePlugin,
-      'prettier': prettier,
+      react, // React 관련 ESLint 규칙 (JSX 문법, Hook 규칙 등)
+      'react-hooks': reactHooks, // React Hooks 사용 규칙 (useEffect 의존성 배열 등)
+      'react-refresh': reactRefresh, // React Fast Refresh 최적화 (개발 중 Hot Reload 향상)
+      'simple-import-sort': simpleImportSort, // import 문 자동 정렬 (시간 절약 ⭐⭐⭐)
+      'jsx-a11y': jsxA11y, // 웹 접근성 규칙 (alt 속성, aria-label 등)
+      'unused-imports': unusedImports, // 사용하지 않는 import 자동 제거 (시간 절약 ⭐⭐⭐)
+      'promise': promisePlugin, // Promise/async-await 관련 규칙 (에러 처리, 올바른 사용법)
+      'prettier': prettier, // 코드 포맷팅 자동화 (들여쓰기, 세미콜론 등 - 시간 절약 ⭐⭐⭐)
     },
 
     rules: {
@@ -95,7 +95,10 @@ const eslintConfig = [
       /* TypeScript Rules */
       '@typescript-eslint/no-explicit-any': 'off', // TypeScript에서 'any' 타입의 명시적 사용 허용
       '@typescript-eslint/no-var-requires': 'off', // require 사용 허용
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }], // 미사용 변수 경고: 단, 변수명이 _로 시작하는 경우는 무시
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ], // 미사용 변수 경고: 단, 변수명이 _로 시작하는 경우는 무시
 
       /* Naming Convention Rules */
       '@typescript-eslint/naming-convention': [
@@ -116,7 +119,10 @@ const eslintConfig = [
 
       /* Unused Imports/Vars (unused-imports) */
       'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': ['warn', { vars: 'all', args: 'after-used', ignoreRestSiblings: true }],
+      'unused-imports/no-unused-vars': [
+        'warn',
+        { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
+      ],
 
       /* Promise Safety (promise) */
       'promise/always-return': 'error', // then/catch 체인에서 항상 반환

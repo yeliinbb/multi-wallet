@@ -11,7 +11,7 @@ interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'name'> {
   height?: number;
 }
 
-export default function Icon({
+function Icon({
   name,
   fill = '#000000',
   stroke,
@@ -30,3 +30,7 @@ export default function Icon({
     />
   );
 }
+
+Icon.displayName = 'Icon';
+
+export default Icon;
