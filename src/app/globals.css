@@ -1,26 +1,245 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* reference other variables */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ===== BASE COLORS (기본 색상 팔레트) ===== */
+  /* Gray Scale */
+  --color-gray-0: #ffffff;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f4;
+  --color-gray-200: #dadada;
+  --color-gray-300: #c0c0c0;
+  --color-gray-400: #a6a6a6;
+  --color-gray-500: #8c8c8c;
+  --color-gray-600: #737373;
+  --color-gray-700: #595959;
+  --color-gray-800: #3f3f3f;
+  --color-gray-900: #262626;
+  --color-gray-1000: #000000;
+
+  /* ===== BRAND COLORS (브랜드 색상) ===== */
+  /* Primary Colors */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+
+  /* Secondary Colors */
+  --color-secondary-50: #f0fdf4;
+  --color-secondary-100: #dcfce7;
+  --color-secondary-200: #bbf7d0;
+  --color-secondary-300: #86efac;
+  --color-secondary-400: #4ade80;
+  --color-secondary-500: #22c55e;
+  --color-secondary-600: #16a34a;
+  --color-secondary-700: #15803d;
+  --color-secondary-800: #166534;
+  --color-secondary-900: #14532d;
+
+  /* ===== STATUS COLORS (상태 색상) ===== */
+  --color-success-50: #f0fdf4;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+
+  --color-warning-50: #fffbeb;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+
+  --color-error-50: #fef2f2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+
+  --color-info-50: #eff6ff;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+
+  /* ===== SEMANTIC COLORS (시맨틱 색상) ===== */
+  /* Layout & Surface */
+  --color-background: var(--color-gray-0);
+  --color-surface: var(--color-gray-50);
+  --color-surface-elevated: var(--color-gray-0);
+
+  /* Text */
+  --color-text-primary: var(--color-gray-1000);
+  --color-text-secondary: var(--color-gray-700);
+  --color-text-tertiary: var(--color-gray-500);
+  --color-text-disabled: var(--color-gray-400);
+  --color-text-inverse: var(--color-gray-0);
+
+  /* Interactive */
+  --color-interactive-primary: var(--color-primary-500);
+  --color-interactive-primary-hover: var(--color-primary-600);
+  --color-interactive-secondary: var(--color-secondary-500);
+  --color-interactive-secondary-hover: var(--color-secondary-600);
+
+  /* Borders */
+  --color-border-primary: var(--color-gray-200);
+  --color-border-secondary: var(--color-gray-100);
+  --color-border-focus: var(--color-primary-500);
+
+  /* States */
+  --color-state-success: var(--color-success-500);
+  --color-state-warning: var(--color-warning-500);
+  --color-state-error: var(--color-error-500);
+  --color-state-info: var(--color-info-500);
+
+  /* ===== FONT VARIABLES (폰트 변수) ===== */
+  --font-inter: var(--font-inter);
+  --font-neue-haas-grotesk: var(--font-neue-haas-grotesk);
+  --font-pretendard: var(--font-pretendard);
+
+  /* font-sans 유틸리티 클래스 재정의 */
+  --font-sans:
+    var(--font-neue-haas-grotesk), var(--font-inter), var(--font-pretendard),
+    ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+/* 다크 모드는 나중에 구현 예정 */
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-background: #0a0a0a;
+    --color-text-primary: #ededed;
+  }
+} */
+
+@layer base {
+  /* 추가 Reset CSS */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+
+    /* Tailwind의 기본 font-sans 사용 - next/font 변수들이 자동으로 적용됨 */
+    @apply font-sans;
+
+    /* Inter Variable의 weight axis 설정 (중간 굵기) */
+    font-variation-settings: 'wght' 500;
+
+    /* 자간(letter-spacing)을 좁게 조정 → 더 타이트하고 모던한 느낌 */
+    /* letter-spacing: -0.1em; */
+
+    /*
+   * 글자 디테일 조정 (OpenType 기능 사용)
+   * cv11: Character Variant 11 — 예를 들어 i, l 등 특정 문자의 형태가 약간 더 구분되도록 조절됨.
+   * ss01: Stylistic Set 01 — Inter 폰트에서 설정 가능한 별도의 스타일 집합. 종종 곡선이 강조되거나 각이 잡힌 형태로 바뀜.
+   */
+    font-feature-settings: 'cv11', 'ss01';
+
+    /* 안티앨리어싱 설정
+  /* -webkit-font-smoothing: 맥OS에서 폰트를 부드럽게 렌더링하기 위한 안티앨리어싱 설정 
+  /* -moz-osx-font-smoothing: macOS Firefox용 안티앨리어싱 설정 
+  */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  input,
+  select,
+  textarea,
+  optgroup,
+  option,
+  fieldset,
+  legend,
+  label {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+  }
+
+  button {
+    margin: 0;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  input {
+    padding: 0;
+    outline: none;
+    border: none;
+    background-color: var(--color-gray-0);
+    color: var(--color-gray-950);
+  }
+
+  /* 자동완성 스타일 제거 */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--color-gray-950);
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-gray-0) inset;
+  }
+
+  textarea {
+    padding: 0;
+    outline: none;
+    border: none;
+    background-color: var(--color-gray-0);
+    color: var(--color-gray-950);
+    /* 텍스트 영역 크기 조절 방지 */
+    resize: none;
+  }
+
+  /* 자동완성 스타일 제거 */
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  textarea:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--color-gray-950);
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-gray-0) inset;
+  }
+
+  a {
+    color: var(--color-gray-950);
+    text-decoration: none;
+  }
+
+  li {
+    list-style: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* 텍스트 유틸리티 클래스 정의 */
+/* @layer utilities {
+  .text-heading1-medium {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+  }
+
+  .text-body3-bold {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 700;
+  }
+} */
