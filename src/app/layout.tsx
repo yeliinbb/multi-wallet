@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import LocalFont from 'next/font/local';
+import Providers from './_providers';
 import './globals.css';
 
 /**
@@ -48,7 +49,11 @@ export default function RootLayout({
       <body
         className={` ${pretendard.variable} ${neueHaasGrotesk.variable} ${inter.variable}`}
       >
-        {children}
+        <Providers>
+          <div className="mx-auto min-h-screen max-w-[430px] bg-background">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
